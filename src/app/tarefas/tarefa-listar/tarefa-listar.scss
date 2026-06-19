@@ -1,0 +1,150 @@
+:host {
+    display: block;
+    min-height: calc(100vh - 80px);
+    padding: 40px;
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 45%, #ecfeff 100%);
+    color: #0f172a;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    margin: 0 0 24px;
+    font-size: 38px;
+    font-weight: 800;
+    color: #1e1b4b;
+    letter-spacing: -1px;
+}
+
+.cadastrar {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 13px 20px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2563eb, #0891b2);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.25);
+    transition: 0.2s;
+}
+
+.cadastrar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(37, 99, 235, 0.35);
+}
+
+span {
+    display: block;
+    margin-bottom: 18px;
+    font-size: 16px;
+    color: #475569;
+}
+
+.quantidade,
+.total {
+    display: inline;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    font-weight: 800;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+thead th {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #64748b;
+}
+
+tbody tr {
+    background-color: white;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    transition: 0.2s;
+}
+
+tbody tr:hover {
+    transform: scale(1.01);
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.12);
+}
+
+tbody td {
+    padding: 18px;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+    font-size: 15px;
+}
+
+tbody td:first-child {
+    border-left: 1px solid #e2e8f0;
+    border-radius: 18px 0 0 18px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+tbody td:last-child {
+    border-right: 1px solid #e2e8f0;
+    border-radius: 0 18px 18px 0;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.editar,
+.apagar {
+    border: none;
+    border-radius: 999px;
+    padding: 9px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.editar {
+    margin-right: 8px;
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.editar:hover {
+    background-color: #fde68a;
+}
+
+.apagar {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.apagar:hover {
+    background-color: #fecaca;
+}
+
+.total {
+    background-color: #ccfbf1;
+    color: #0f766e;
+}
+
+@media (max-width: 760px) {
+    :host {
+        padding: 24px 16px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+}

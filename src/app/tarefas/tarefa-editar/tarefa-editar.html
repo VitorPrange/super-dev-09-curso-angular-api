@@ -1,0 +1,19 @@
+<h1>Editar Tarefa</h1>
+
+<label for="descricao">Descrição</label>
+<input type="text" [(ngModel)]="tarefa().descricao" 
+    id="descricao" placeholder="Digite a descrição da tarefa">
+
+<label for="prioridade">Prioridade</label>
+<input type="number" [(ngModel)]="tarefa().prioridade" 
+    id="prioridade" placeholder="Digite a prioridade da tarefa">
+
+<label for="horas-estimadas">Horas estimadas em minutos</label>
+<input type="number" [(ngModel)]="tarefa().horasEstimadas" 
+    id="horas-estimadas" placeholder="Digite a quantidade de minutos estimados">
+
+@if(tarefa().horasEstimadas !== null){
+    <span>Tempo estimado: {{tarefa().horasEstimadas}} minuto(s)</span>
+}
+
+<button (click)="salvar()">Salvar</button>
