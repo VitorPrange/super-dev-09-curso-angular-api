@@ -1,7 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TarefaModel } from '../../models/tarefa.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TarefaService } from '../../services/tarefa.service';
+import { signalUpdateFn } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'app-tarefa-editar',
@@ -17,54 +19,53 @@ export class TarefaEditar {
     horasEstimadas: null
   });
 
-  // Método executado quando o componente de editar tarefa é aberto
+  tarefaService = inject(TarefaService);
+
   constructor(private activeRoute: ActivatedRoute, private router: Router) {
-    // Pega o id definido na rota /tarefas/editar/:id
     const idParaEditar = activeRoute.snapshot.paramMap.get("id");
 
-    // Carrega a lista de tarefas do localStorage
-    const tarefasString = localStorage.getItem("tarefas");
-    if (tarefasString === null) {
-      alert("Nenhuma tarefa cadastrada")
-      router.navigate(["/tarefas"]);
+    if(idParaEditar === null){
+      alert("Id da tarefa não encontrado");
+      this.router.navigate(["/tarefas"]);
       return;
     }
 
-    const tarefas = JSON.parse(tarefasString) as TarefaModel[];
-    const tarefasEncontradas = tarefas.filter(tarefa => tarefa.id === idParaEditar);
+    this.tarefa.update(tarefa=> ({
+      ...tarefa,
+      id: idParaEditar
+    }));
+    this.consultarTarefa();
+  }
 
-    if (tarefasEncontradas.length === 0) {
-      alert("Tarefa não encontrada")
-      router.navigate(["/tarefas"]);
-      return;
-    }
-
-    this.tarefa.set(tarefasEncontradas[0]);
+  consultarTarefa(): void {
+    this.tarefaService.obterPorId(this.tarefa().id).subscribe({
+      next: tarefa => {
+        this.tarefa.update(() => ({
+          id: tarefa.id,
+          descricao: tarefa.descricao,
+          prioridade: tarefa.prioridade,
+          horasEstimadas: tarefa.horasEstimadas
+        }))
+      },
+      error: erro => {
+        console.error("deu ruim" + erro)
+        alert("Ocorreu um erro ao consultar a tarefa");
+      }
+    })
   }
 
   salvar(): void {
-    const tarefas = this.carregarTarefasDoLocalStorage();
 
-    const indiceTarefaParaEditar = tarefas.findIndex(x => x.id === this.tarefa().id);
-    tarefas[indiceTarefaParaEditar].descricao = this.tarefa().descricao;
-    tarefas[indiceTarefaParaEditar].prioridade = this.tarefa().prioridade;
-    tarefas[indiceTarefaParaEditar].horasEstimadas = this.tarefa().horasEstimadas;
-    
-    const tarefaString = JSON.stringify(tarefas);
-    localStorage.setItem("tarefas", tarefaString)
 
-    alert("Tarefa alterada com sucesso");
-
-    this.router.navigate(["/tarefas"]);
-  }
-
-  carregarTarefasDoLocalStorage(): TarefaModel[] {
-    const tarefasString = localStorage.getItem("tarefas");
-
-    if (tarefasString === null) {
-      return [];
-    }
-
-    return JSON.parse(tarefasString) as TarefaModel[];
+    this.tarefaService.editar(this.tarefa().id, this.tarefa()).subscribe({
+      next: () => {
+        alert("Tarefa editada com sucesso")
+        this.router.navigate(["/tarefas"]);
+      },
+      error: erro => {
+        console.error("Não foi possivel alterar a tarefa");
+        alert("Erro ao aterar a tarefa");
+      }
+    });
   }
 }
