@@ -1,0 +1,33 @@
+<h1>Projetos</h1>
+
+<a routerLink="/projetos/cadastrar" class="cadastrar">Cadastrar Projeto</a>
+
+<span>Qtd projetos: <span class="quantidade">{{projetos().length}}</span></span>
+
+<table>
+    <thead>
+        <th>Nome</th>
+        <th>Codigo</th>
+        <th>Custo estimado</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <!-- 
+        for (let i = 0; i < tarefas.length; i++){
+            let tarefa = tarefas[i];
+        }
+        -->
+        @for(projeto of projetos(); track projeto.id){
+
+            <tr>
+                <td>{{projeto.nome}}</td>
+                <td>{{projeto.codigoProjeto}}</td>
+                <td>R${{projeto.custoEstimado}}</td>
+                <td>
+                    <a class="editar" routerLink="/projetos/editar/{{projeto.id}}">Editar</a>
+                    <button class="apagar" (click)="apagar(projeto.id)">Apagar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
