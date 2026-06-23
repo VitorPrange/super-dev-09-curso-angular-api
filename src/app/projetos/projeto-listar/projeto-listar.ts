@@ -16,20 +16,21 @@ export class ProjetoListar {
   projetos = signal<ProjetoModel[]>([]);
 
   ngOnInit() {
-    this.carregarTarefas();
+    this.carregarProjetos();
   }
 
-  carregarTarefas(): void {
+  carregarProjetos(): void {
 
     this.projetoService.listar().subscribe({
+      // next é o caso de sucesso
       next: projetos => {
-        const tarefasOrdenadas = projetos.sort((x, y) => x.nome.localeCompare(y.nome));
-        this.projetos.set(tarefasOrdenadas);
+        const projetosOrdenados = projetos.sort((x, y) => x.nome.localeCompare(y.nome));
+        this.projetos.set(projetosOrdenados);
       },
       // error e o caso de erro
       error: erro => {
-        console.error("Erro ao carregar as tarefas: " + erro);
-        alert("Não foi possivel carregar as tarefas")
+        console.error("Erro ao carregar os projetos: " + erro);
+        alert("Não foi possivel carregar os projetos")
       }
     })
 
@@ -37,8 +38,15 @@ export class ProjetoListar {
   }
 
   apagar(id: string): void {
-    this.projetos.update(projetos => projetos.filter(x => x.id !== id))
-    const tarefasString = JSON.stringify(this.projetos());
-    localStorage.setItem("tarefas", tarefasString);
+    this.projetoService.apagar(id).subscribe({
+      next: () => {
+        alert("Projeto apagado com sucesso");
+        this.carregarProjetos();
+      },
+      error: erro => {
+        console.error("Erro ao tentar apagar o projeto" + erro);
+        alert("Erro ao apagar projeto");
+      }
+    })
   }
 }
