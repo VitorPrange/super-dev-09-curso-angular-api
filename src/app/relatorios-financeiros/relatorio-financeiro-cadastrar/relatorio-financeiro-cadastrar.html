@@ -1,0 +1,16 @@
+<label for="titulo">Titulo</label>
+<input type="text" name="titulo" id="titulo" placeholder="Titulo" [(ngModel)]="relatorio().titulo">
+
+<label for="tipo">Tipo</label>
+<input type="text" name="tipo" id="tipo" placeholder="Tipo" [(ngModel)]="relatorio().tipo">
+
+<label for="valor-total">Valor total</label>
+<input type="number" name="valor-total" id="valor-total" placeholder="Valor total" [(ngModel)]="relatorio().valorTotal">
+
+<label for="data-emissao">Data de emissão</label>
+<input type="date" name="data-emissao" id="data-emissao" placeholder="Data de emição" [(ngModel)]="relatorio().dataEmissao">
+
+<label for="responsavel">Responsavel</label>
+<input type="text" name="responsavel" id="responsavel" placeholder="Responsavel" [(ngModel)]="relatorio().responsavel">
+
+<button (click)="salvar()">Salvar</button>

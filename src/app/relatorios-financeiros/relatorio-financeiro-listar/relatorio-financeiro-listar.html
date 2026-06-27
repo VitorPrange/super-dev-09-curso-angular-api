@@ -1,0 +1,37 @@
+<h1>Relatorios</h1>
+
+<a routerLink="/relatorios/cadastrar" class="cadastrar">Cadastrar Relatorio</a>
+
+<span>Qtd relatorios: <span class="quantidade">{{relatorios().length}}</span></span>
+
+<table>
+    <thead>
+        <th>Titulo</th>
+        <th>Tipo</th>
+        <th>Valor total</th>
+        <th>Data de emissão</th>
+        <th>Responsavel</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <!-- 
+        for (let i = 0; i < tarefas.length; i++){
+            let tarefa = tarefas[i];
+        }
+        -->
+        @for(relatorio of relatorios(); track relatorio.id){
+
+            <tr>
+                <td>{{relatorio.titulo}}</td>
+                <td>{{relatorio.tipo}}</td>
+                <td>{{relatorio.valorTotal}}</td>
+                <td>{{relatorio.dataEmissao}}</td>
+                <td>{{relatorio.responsavel}}</td>
+                <td>
+                    <a class="editar" routerLink="/relatorios/editar/{{relatorio.id}}">Editar</a>
+                    <button class="apagar" (click)="apagar(relatorio.id)">Apagar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

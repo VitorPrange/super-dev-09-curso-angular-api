@@ -38,4 +38,5 @@ export class TarefaCadastrar {
   //tarefa de final de semana criar as telas de lista e cadastro de projetos
   //comunicando com a API /api/v1/trabalho/projetos
   // lista GET, cadastro POST
+  // Tarefa de meio da semana: implementar o GET obter por ID, PUT editar e DELETE apagar da tarefa
 }
